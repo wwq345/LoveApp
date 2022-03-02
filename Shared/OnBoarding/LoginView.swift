@@ -14,6 +14,8 @@ struct LoginView: View {
     @State var isLoading: Bool = false
     @State var isAlert: Bool = false
     @State var isSuccess: Bool = false
+    @EnvironmentObject var userStore: UserStore
+    
     var errorMessage: String = "There are some Problem with Logging"
 
     func hideKeyboard(){
@@ -38,7 +40,7 @@ struct LoginView: View {
                 
             
                 if !self.isFocused{
-                    FunctionButtonView(isLoading: self.$isLoading, isAlert: self.$isAlert, isSuccess: self.$isSuccess)
+                    FunctionButtonView(isLoading: self.$isLoading, isAlert: self.$isAlert, isSuccess: self.$isSuccess, userStore: .constant(self.userStore))
                 }
                 
                 if self.isLoading{
@@ -64,6 +66,7 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
+            .environmentObject(UserStore())
     }
 }
 
@@ -217,6 +220,7 @@ struct FunctionButtonView: View{
     @Binding var isLoading: Bool
     @Binding var isAlert: Bool
     @Binding var isSuccess: Bool
+    @Binding var userStore: UserStore
     var errorMessage: String = "There are some Problem with Logging"
     var forgetMessage: String = "Too Stupid to forget these"
     
@@ -226,8 +230,10 @@ struct FunctionButtonView: View{
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.isLoading = false
             self.isSuccess = true
+            self.userStore.isLogged = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.isSuccess = false
+                self.userStore.showLogin = false
             }
         }
         

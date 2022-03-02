@@ -11,7 +11,8 @@ struct Home: View {
     @Binding var showProfile: Bool
     @Binding var showUpdate: Bool 
     @Binding var showContentWithRing: Bool
-    @Binding var userStore: UserStore
+    @EnvironmentObject var userStore: UserStore
+//    @Binding var userSotre: UserStore
     
     var body: some View {
         ScrollView {
@@ -22,7 +23,10 @@ struct Home: View {
                     
                     Spacer()
                     
-                    ChangeToMenuView(userStore: self.$userStore, showProfile: self.$showProfile)
+                    ChangeToMenuView(showProfile: self.$showProfile)
+                        .environmentObject(self.userStore)
+//                    ChangeToMenuView(userStore: .constant(self.userStore),showProfile: self.$showProfile)
+                        
                     
                     Button(action: {
                         self.showUpdate.toggle()
@@ -85,7 +89,10 @@ struct Home: View {
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
 //      这个是不是应该用什么environmentObject的那个，那个只是针对数据类型的嘛
-        Home(showProfile: .constant(false), showUpdate: .constant(false), showContentWithRing: .constant(false), userStore: .constant(UserStore()))
+        Home(showProfile: .constant(false), showUpdate: .constant(false), showContentWithRing: .constant(false))
+            .environmentObject(UserStore())
+//        Home(showProfile: .constant(false), showUpdate: .constant(false), showContentWithRing: .constant(false),useStore: .constant(slef.userStore))
+//
     }
 }
 
@@ -178,8 +185,9 @@ struct WatchRingView: View {
 }
 
 struct ChangeToMenuView: View {
-    @Binding var userStore: UserStore
+//    @Binding var userStore: UserStore
     @Binding var showProfile: Bool
+    @EnvironmentObject var userStore: UserStore
     
     var body: some View {
         if userStore.isLogged{
@@ -193,7 +201,7 @@ struct ChangeToMenuView: View {
             }
         }else{
             Button(action: {
-                self.userStore.isLogged.toggle()
+                self.userStore.showLogin.toggle()
             }){
                 Image(systemName: "person.crop.circle")
                     .resizable()

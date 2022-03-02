@@ -41,29 +41,6 @@ struct DateCourseListView: View {
     }
     
     var body: some View {
-        
-        
-//        ScrollView{
-//            VStack(spacing: 30){
-//
-//                Text("Love Courses")
-//                    .font(.title)
-//                    .fontWeight(.bold)
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                    .padding(.leading, 30)
-//
-//                ForEach(self.cardData.dataList){item in
-//                    GeometryReader{ geometry in
-//                        return CourseCardView(index: item.id)
-//                            .environmentObject(self.cardData)
-//                            .offset(y: item.showAllScreen ? -geometry.frame(in: .global).minY : 0)
-//                    }
-//                    .frame(height: item.showAllScreen ? screen.height : 280)
-//                    .frame(maxWidth: item.showAllScreen ? .infinity : screen.width - 40)
-//                }
-//            }
-//        }
-//        .frame(width: screen.width)
  
         if ifFullScreen(){
             ScrollView{
