@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MenuView: View {
-    
-    @EnvironmentObject var userStore: UserStore
+    @StateObject var userStore: UserStore
+//    @EnvironmentObject var userStore: UserStore
     @Binding var showProfile: Bool
     
     var body: some View {
@@ -62,8 +62,10 @@ struct MenuView: View {
 
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView(showProfile: .constant(false))
+        MenuView(userStore: UserStore(), showProfile: .constant(false))
             .environmentObject(UserStore())
+//        MenuView( showProfile: .constant(false))
+//            .environmentObject(UserStore())
     }
 }
 

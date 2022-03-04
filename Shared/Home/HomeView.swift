@@ -13,7 +13,8 @@ struct HomeView: View {
     @State var menuPosition: CGSize = CGSize.zero
     @State var showContentWithRing: Bool = false
     @EnvironmentObject var userStore: UserStore
-    
+//    @StateObject var userStore: UserStore
+    @Binding var ifshowtabBar: Bool
     var body: some View {
         ZStack {
             
@@ -23,8 +24,18 @@ struct HomeView: View {
             
             
 //            Home(showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing, userStore: .constant(self.userStore))
+//                .environmentObject(self.userStore)
+//            Home(showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing)
+//                .environmentObject(self.userStore)
             Home(showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing)
                 .environmentObject(self.userStore)
+                .environmentObject(HomeCardDataList(cardDataList:[
+                    homeCardData(title: "How to Love", color: Color("Color1"),image: "cloud"),
+                    homeCardData(title: "who to Love", color: Color("Color2"),image: "mountain"),
+                    homeCardData(title: "when to Love", color: Color("Color3"),image: "sunset"),
+                    homeCardData(title: "where to Love", color: Color("Color4"),image: "grass"),
+                    homeCardData(title: "The day you meet", color: Color("Color8"), image: "sea")
+                ]))
 //            顺序很重要
                 .padding(.top, 44)
                 .background(Color.white.opacity(self.showProfile ? Double(self.menuPosition.height / 10 + 1) : 1))
@@ -64,32 +75,16 @@ struct HomeView: View {
                 }
             }
             
-            
-            MenuView(showProfile: self.$showProfile)
-                .environmentObject(self.userStore)
-                .background(Color.black.opacity(0.001))
-                .offset(y: self.showProfile ? 0 : screen.height)
-                .offset(y: self.menuPosition.height)
-                .animation(.spring(), value: self.showProfile)
-                .onTapGesture {
-                    self.showProfile.toggle()
-                }
-                .gesture(
-                    DragGesture().onChanged() { value in
-                        self.menuPosition = value.translation
-                    }
-                        .onEnded(){ value in
-                            if self.menuPosition.height > 50{
-                                self.showProfile = false
-                            }
-                            self.menuPosition = .zero
-                        }
-                )
-            
             if self.userStore.showLogin{
                 ZStack {
                     LoginView()
                         .environmentObject(self.userStore)
+                        .onAppear(){
+                            self.ifshowtabBar = false
+                        }
+                        .onDisappear(){
+                            self.ifshowtabBar = true
+                        }
 
                     VStack{
                         HStack {
@@ -109,13 +104,36 @@ struct HomeView: View {
                     }
                 }
             }
+            
+            MenuView(userStore: self.userStore, showProfile: self.$showProfile)
+//                .environmentObject(self.userStore)
+                .background(Color.black.opacity(0.001))
+                .offset(y: self.showProfile ? 0 : screen.height)
+                .offset(y: self.menuPosition.height)
+                .animation(.spring(), value: self.showProfile)
+                .onTapGesture {
+                    self.showProfile.toggle()
+                }
+                .gesture(
+                    DragGesture().onChanged() { value in
+                        self.menuPosition = value.translation
+                    }
+                        .onEnded(){ value in
+                            if self.menuPosition.height > 50{
+                                self.showProfile = false
+                            }
+                            self.menuPosition = .zero
+                        }
+                )
+            
+            
         }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(ifshowtabBar: .constant(true))
             .environmentObject(UserStore())
     }
 }
