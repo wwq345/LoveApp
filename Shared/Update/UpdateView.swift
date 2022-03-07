@@ -22,12 +22,6 @@ struct UpdateView: View{
             List{
                 ForEach(updateStore.updateList){ item in
                     NavigationLink(destination: UpdateDetailView(updateData: item)
-                                    .onAppear(){
-                        
-                    }
-                                    .onDisappear(){
-                       
-                    }
                     ){
                         HStack {
                             Image(item.image)
