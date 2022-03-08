@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State var ifAlert: Bool = false
     @State var showProfile: Bool = false
     @State var showUpdate: Bool = false
     @State var menuPosition: CGSize = CGSize.zero
@@ -27,7 +28,7 @@ struct HomeView: View {
 //                .environmentObject(self.userStore)
 //            Home(showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing)
 //                .environmentObject(self.userStore)
-            Home(showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing)
+            Home(ifAlert: self.$ifAlert, showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing)
                 .environmentObject(self.userStore)
                 .environmentObject(HomeCardDataList(cardDataList:[
                     homeCardData(title: "How to Love", color: Color("Color1"),image: "cloud"),

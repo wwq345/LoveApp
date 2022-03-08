@@ -87,7 +87,9 @@
 
 1. 解决了4.1的bug的视图更新的问题，而且run也没问题
 
-   > 使用了stateobject，而不是environmentobject，这个environment会有生成时间的问题？（大概），state这个会存到一个更emmm持久的地方（SwiftUI framework internal memory）？state会随着视图刷新就摧毁，所以就会有之前的run的时候就会有fatal error，很有可能是更新视图的时候就给销毁了,但是environment,不然的话就会出现，当你去加载子视图，然后在回来的时候，原来的view已经销毁，数据被丢弃了，所以就会回到未登录的状态，version1.1应该还没有解决这个问题，可以试着看看
+   > 使用了stateobject，而不是environmentobject，这个environment会有生成时间的问题？（大概），state这个会存到一个更emmm持久的地方（SwiftUI framework internal memory）？明显在我做的时候，state的不会随着视图刷新被丢弃，enironment就会，这部分到底谁更持久有待讨论，不然的话就会出现，当你去加载子视图，然后在回来的时候，原来的view已经销毁，数据被丢弃了，所以就会回到未登录的状态，version1.1应该还没有解决这个问题，可以试着看看
+   >
+   > 其实，如果从根的角度来讲的话，就不应该把根上的数据定义为environment，只有子视图应该定义为environment吧
    >
    > error： Thread 1: Fatal error: No observable object of type 
 
@@ -98,8 +100,14 @@
 ### 2.Bug
 
 1. 其他的4.1bug继续
+
 2. homeview的那个work什么怎么没了？
+
+   > Simulator 开启的是dark mode，字体默认为白色，就透明看不到了，应该是这样的，后面改了文字颜色就好了
+
 3. The layer is using dynamic shadows which are expensive to render. If possible try setting `shadowPath`, or pre-rendering the shadow into an image and putting it under the layer. This is a runtime bug?
+
+   > 莫名出现莫名消失
 
 
 
@@ -126,3 +134,17 @@
 2. 重新书写的tabBar还是不完美不过，可以调整
 3. 剩下的就是一些预想功能的实现，比如收藏列表啊，还有识别的那个button可以想办法插进去，可能是教程之后会做的事情
 3. 退出app之后也可以保存登陆状态
+
+### 2.Bug
+
+1. Course在展开跳转到新的页面之后，button点击不能改变state
+
+   > 前面有个view给挡住了，我说呢，为啥子点不了，但是我找不到那个view啊
+
+2. topbar点击回来的时候为什么登陆了还会有提醒登陆的alert，关键是我根本没有点击啊
+
+   > 没找出原因为什么，但是不绑定就好了
+
+3. updateView点击的时候
+
+   > 会出一个提示log：**Unable to simultaneously satisfy constraints**-->这个好像是navigationbartitle的问题，具体原因得问hansi哥了

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct Home: View {
+    //@State var ifAlert: Bool(userStore.islogged)
+    @Binding var ifAlert: Bool
+    var errorMessage: String = "Please sign"
     @Binding var showProfile: Bool
     @Binding var showUpdate: Bool 
     @Binding var showContentWithRing: Bool
@@ -32,7 +35,11 @@ struct Home: View {
                         
                     
                     Button(action: {
-                        self.showUpdate.toggle()
+                        if self.userStore.isLogged{
+                            self.showUpdate.toggle()
+                        }else{
+                            self.ifAlert = true
+                        }
                     }){
                         Image(systemName: "bell")
                             .imageScale(.large)
@@ -41,6 +48,9 @@ struct Home: View {
                             .clipShape(Circle())
                             .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
                             .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 1)
+                    }
+                    .alert(isPresented: self.$ifAlert){
+                        Alert(title: Text("Not Logged"), message: Text(self.errorMessage), dismissButton: .default(Text("Go Login")))
                     }
                     .sheet(isPresented: self.$showUpdate, onDismiss: {}){
                         UpdateView()
@@ -91,7 +101,7 @@ struct Home: View {
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
 //      这个是不是应该用什么environmentObject的那个，那个只是针对数据类型的嘛
-        Home(showProfile: .constant(false), showUpdate: .constant(false), showContentWithRing: .constant(false))
+        Home(ifAlert: .constant(false), showProfile: .constant(false), showUpdate: .constant(false), showContentWithRing: .constant(false))
             .environmentObject(UserStore())
             .environmentObject(HomeCardDataList(cardDataList:[
                 homeCardData(title: "How to Love", color: Color("Color1"),image: "cloud"),

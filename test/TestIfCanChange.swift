@@ -8,36 +8,21 @@
 import SwiftUI
 
 struct TestIfCanChange: View {
-    @EnvironmentObject var userStore: UserStore
+    @EnvironmentObject var testList: TestdataList
+    var index: Int
     
     var body: some View {
-        if self.userStore.showLogin{
-            ZStack {
-                LoginView()
-                
-                VStack{
-                    HStack {
-                        Spacer()
-                        
-                        Image(systemName: "xmark")
-                            .frame(width: 36, height: 36)
-                            .foregroundColor(.white)
-                            .background(.black)
-                            .clipShape(Circle())
-                    }
-                }
-                .padding()
-                .onTapGesture {
-                    self.userStore.showLogin = false
-                }
+        
+        Text(self.testList.testList[index].changed ? "change" : "no change")
+            .onTapGesture {
+                self.testList.testList[index].changed.toggle()
             }
-        }
     }
 }
 
 struct TestIfCanChange_Previews: PreviewProvider {
     static var previews: some View {
-        TestIfCanChange()
-            .environmentObject(UserStore())
+        TestIfCanChange(index: 0)
+            .environmentObject(TestdataList())
     }
 }

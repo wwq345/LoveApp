@@ -10,8 +10,8 @@ import SwiftUI
 
 
 struct CourseDetailView: View {
-    
-    @ObservedObject var cardData: CardDataList
+//    @StateObject var cardData: CardDataList
+    @EnvironmentObject var cardData: CardDataList
     var index: Int
     
     var body: some View{
@@ -31,23 +31,34 @@ struct CourseDetailView: View {
                 Spacer(minLength: 40)
                 
                 
-                Image(systemName: "heart")
-                    .imageScale(.large)
-                    .padding()
+                Button(action: {
+                    self.cardData.dataList[index].isFavorite.toggle()
+                }){
+                    Image(systemName: self.cardData.dataList[index].isFavorite ? "heart.fill" : "heart")
+                        .imageScale(.large)
+                        .foregroundColor(.pink)
+                        .padding()
+                }
+                  
                 
                 Image("cpuid")
                     .resizable()
                     .aspectRatio( contentMode: .fit)
                     .frame(width: 80, height: 80)
             }
-            Spacer()
-           
-            AdviceView(index: self.index)
-                .frame(width: screen.width-40, height:screen.height - 100)
-                .padding(.top, 20)
-                .offset(y: -20)
+            
+            
+            
+            ScrollView {
+                AdviceView(index: self.index)
+                    .frame(width: screen.width-40, height:screen.height - 100)
+                    .padding(.top, 20)
+                    .offset(y: -20)
                 .environmentObject(self.cardData)
-
+            }
+            .frame(maxHeight: screen.height)
+       
+        
         }
         .padding(30)
         .padding(.top, 30)
@@ -73,27 +84,31 @@ struct AdviceView: View {
             Text(self.cardData.dataList[index].title)
                 .font(.subheadline)
             
-            ScrollView {
+           
                 ForEach(0..<5) { item in
                     Text(textIndex[self.index])
                         .padding(10)
                         .lineSpacing(4)
                         .frame(alignment: .leading)
                 }
-            }
-            .frame(maxHeight: screen.height)
         }
     }
 }
 
 struct CourseDetailView_Previews: PreviewProvider {
     static var previews: some View {
-//        CourseDetailView(cardData: CardDataList(dataList: [CardData(text: "Course1", title: "How to Introduce yourself", Image: "love", showAllScreen: true), CardData(text: "Course2", title: "How to Attract dating person", Image: "love", showAllScreen: false)]))
-        CourseDetailView(cardData: CardDataList(dataList: [
-            CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"),
-            CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),
-            CardData(text: "Course3", title: "How to increase romantic between you", Image: "love")
-        ]), index: 2)
+//        CourseDetailView(cardData: CardDataList(dataList: [
+//            CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"),
+//            CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),
+//            CardData(text: "Course3", title: "How to increase romantic between you", Image: "love")
+//        ]), index: 2)
+        CourseDetailView(index: 0)
+            .environmentObject(CardDataList(dataList: [
+                CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"),
+                CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),
+                CardData(text: "Course3", title: "How to increase romantic between you", Image: "love")
+            ]))
+      
     }
 }
 

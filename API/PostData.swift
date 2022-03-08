@@ -16,6 +16,7 @@ struct Post: Identifiable, Codable{
 
 class Api{
     func getPosts(completion: @escaping ([Post]) -> ()){
+        //guard let url = URL(string: "htp://192.168.0.0.1/users/getuser")
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else{
             return
         }

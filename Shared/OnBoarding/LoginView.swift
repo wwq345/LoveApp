@@ -221,8 +221,8 @@ struct FunctionButtonView: View{
     @Binding var isAlert: Bool
     @Binding var isSuccess: Bool
     @Binding var userStore: UserStore
-    var errorMessage: String = "There are some Problem with Logging"
-    var forgetMessage: String = "Too Stupid to forget these"
+//    var errorMessage: String = "There are some Problem with Logging"
+    var forgetMessage: String = "Too Stupid to forget"
     
     func login(){
         self.isLoading = true
@@ -284,9 +284,9 @@ struct FunctionButtonView: View{
             .background(Color("Color3"))
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .shadow(color: Color("Color3"), radius: 10, x: 0, y: 10)
-            .alert(isPresented: self.$isAlert){
-                Alert(title: Text("Error"), message: Text(self.errorMessage), dismissButton: .default(Text("OK")))
-            }
+//            .alert(isPresented: self.$isAlert){
+//                Alert(title: Text("Error"), message: Text(self.errorMessage), dismissButton: .default(Text("OK")))
+//            }
         }
         .frame(maxWidth: .infinity,maxHeight: .infinity, alignment: .bottom)
         .padding()

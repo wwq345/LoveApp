@@ -9,14 +9,22 @@ import SwiftUI
 
 struct TestFunctionView: View {
     
-    @State var reason: String = "dsad"
+    @EnvironmentObject var testData: TestdataList
     
     var body: some View {
-       
-        Button {
-            print(reason)
-        } label: {
-            Text("tell me why")
+        
+        NavigationView{
+            List{
+                ForEach(self.testData.testList) { item in
+                    NavigationLink(destination:
+                                    TestIfCanChange(index: item.id)
+                                    .environmentObject(self.testData)){
+                        Text("Hello world")
+                    }
+                    
+                }
+                
+            }
         }
 
     }
@@ -25,5 +33,14 @@ struct TestFunctionView: View {
 struct TestFunctionView_Previews: PreviewProvider {
     static var previews: some View {
         TestFunctionView()
+            .environmentObject(
+                TestdataList(testList: [
+                    testdata(changed: false),
+                    testdata(changed: false),
+                    testdata(changed: false),
+                    testdata(changed: false),
+                    testdata(changed: false)
+                ])
+            )
     }
 }

@@ -17,6 +17,8 @@ struct TopBarView: View {
     @State private var selectedTab = Tab.first
     @State var ifshowTabBar: Bool = true
     @StateObject var userStore = UserStore()
+    @StateObject var cardData: CardDataList = trueCourseData
+//    @EnvironmentObject var cardData: CardDataList = trueCourseData
     var body: some View{
         
         VStack {
@@ -25,14 +27,13 @@ struct TopBarView: View {
                     HomeView(ifshowtabBar: self.$ifshowTabBar)
                         .environmentObject(self.userStore)
                 }else if selectedTab == .second{
-                    
                     VStack{
-                        DateCourseListView(cardData: truecardList, ifshowTabBar: self.$ifshowTabBar)
+                        DateCourseListView(ifshowTabBar: self.$ifshowTabBar)
+                            .environmentObject(self.cardData)
                         if self.ifshowTabBar{
                             tabBarView
                         }
-                        
-                        
+
                     }
                 }else if selectedTab == .third{
                     
@@ -94,8 +95,7 @@ struct TopBarView_Previews: PreviewProvider {
     }
 }
 
-let truecardList: CardDataList = CardDataList(dataList:
-                                                [CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"), CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),CardData(text: "Course3", title: "How to Introduce yourself", Image: "love"),CardData(text: "Course4", title: "How to Introduce yourself", Image: "love"),CardData(text: "Course5", title: "How to Introduce yourself", Image: "love")])
+
 //var body: some View {
 //    ZStack {
 //        TabView{
@@ -119,3 +119,10 @@ let truecardList: CardDataList = CardDataList(dataList:
 //}
 
 
+var trueCourseData: CardDataList = CardDataList(dataList:[
+    CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"),
+    CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),
+    CardData(text: "Course3", title: "How to Introduce yourself", Image: "love"),
+    CardData(text: "Course4", title: "How to Introduce yourself", Image: "love"),
+    CardData(text: "Course5", title: "How to Introduce yourself", Image: "love")
+])
