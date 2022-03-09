@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct MenuView: View {
-    @StateObject var userStore: UserStore
+    @StateObject var userStore: UserDataStore
 //    @EnvironmentObject var userStore: UserStore
     @Binding var showProfile: Bool
+    var index: Int
     
     var body: some View {
         
@@ -37,7 +38,7 @@ struct MenuView: View {
                 RowView(title: "Bill", icon: "creditcard")
                 RowView(title: "Sign out", icon: "person.crop.circle")
                     .onTapGesture {
-                        self.userStore.isLogged = false
+                        self.userStore.userDataList[self.index].isLogged = false
                         self.showProfile = false
                     }
             }
@@ -48,7 +49,7 @@ struct MenuView: View {
             .shadow(radius: 20, x: 0, y: 20)
         .padding(.horizontal, 30)
         .overlay(
-            Image("boy")
+            Image(self.userStore.userDataList[index].avatar)
                 .resizable()
                 .aspectRatio( contentMode: .fill)
                 .frame(width: 60, height: 60)
@@ -62,8 +63,8 @@ struct MenuView: View {
 
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView(userStore: UserStore(), showProfile: .constant(false))
-            .environmentObject(UserStore())
+        MenuView(userStore: UserDataStore(), showProfile: .constant(false), index: 0)
+//            .environmentObject(UserDataStore())
 //        MenuView( showProfile: .constant(false))
 //            .environmentObject(UserStore())
     }

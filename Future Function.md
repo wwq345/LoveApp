@@ -55,7 +55,7 @@
 
 
 
-## Future Function4
+## Future Function4  version1
 
 ### 1.Function
 
@@ -81,7 +81,7 @@
 
 
 
-## Future Function 4
+## Future Function 4 version 2.1
 
 ### 1.function
 
@@ -111,7 +111,7 @@
 
 
 
-## Future Function 5
+## Future Function 5  - version2.2
 
 ### 1.Function
 
@@ -126,7 +126,7 @@
 
 
 
-## FutureFunction 6
+## FutureFunction 6   -version3 
 
 ### 1.Function
 
@@ -148,3 +148,13 @@
 3. updateView点击的时候
 
    > 会出一个提示log：**Unable to simultaneously satisfy constraints**-->这个好像是navigationbartitle的问题，具体原因得问hansi哥了
+
+
+
+## Future Function6 -version 4
+
+### 1.Function
+
+1. Login 和 register的功能，emmm感觉如同胡乱在写一
+
+   > 可能就是胡乱写的

@@ -16,7 +16,10 @@ struct TopBarView: View {
     
     @State private var selectedTab = Tab.first
     @State var ifshowTabBar: Bool = true
-    @StateObject var userStore = UserStore()
+    @StateObject var userStore = UserDataStore(userDataList: [
+        UserData(username: "wwq", avatar: "boy"),
+        UserData(username: "wwq1", avatar: "dogSign"),
+        UserData(username: "wwq2", avatar: "logo")])
     @StateObject var cardData: CardDataList = trueCourseData
 //    @EnvironmentObject var cardData: CardDataList = trueCourseData
     var body: some View{
@@ -24,7 +27,7 @@ struct TopBarView: View {
         VStack {
             ZStack{
                 if selectedTab == .first{
-                    HomeView(ifshowtabBar: self.$ifshowTabBar)
+                    HomeView(ifshowtabBar: self.$ifshowTabBar, userindex: 1)
                         .environmentObject(self.userStore)
                 }else if selectedTab == .second{
                     VStack{

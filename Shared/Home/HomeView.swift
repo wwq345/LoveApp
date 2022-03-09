@@ -13,9 +13,10 @@ struct HomeView: View {
     @State var showUpdate: Bool = false
     @State var menuPosition: CGSize = CGSize.zero
     @State var showContentWithRing: Bool = false
-    @EnvironmentObject var userStore: UserStore
+    @EnvironmentObject var userStore: UserDataStore
 //    @StateObject var userStore: UserStore
     @Binding var ifshowtabBar: Bool
+    var userindex: Int
     var body: some View {
         ZStack {
             
@@ -28,7 +29,7 @@ struct HomeView: View {
 //                .environmentObject(self.userStore)
 //            Home(showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing)
 //                .environmentObject(self.userStore)
-            Home(ifAlert: self.$ifAlert, showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing)
+            Home(ifAlert: self.$ifAlert, showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing, userindex: self.userindex)
                 .environmentObject(self.userStore)
                 .environmentObject(HomeCardDataList(cardDataList:[
                     homeCardData(title: "How to Love", color: Color("Color1"),image: "cloud"),
@@ -76,9 +77,9 @@ struct HomeView: View {
                 }
             }
             
-            if self.userStore.showLogin{
+            if self.userStore.userDataList[self.userindex].showLogin{
                 ZStack {
-                    LoginView()
+                    LoginView(userindex: self.userindex)
                         .environmentObject(self.userStore)
                         .onAppear(){
                             self.ifshowtabBar = false
@@ -101,12 +102,12 @@ struct HomeView: View {
                     }
                     .padding()
                     .onTapGesture {
-                        self.userStore.showLogin = false
+                        self.userStore.userDataList[self.userindex].showLogin = false
                     }
                 }
             }
             
-            MenuView(userStore: self.userStore, showProfile: self.$showProfile)
+            MenuView(userStore: self.userStore, showProfile: self.$showProfile, index: self.userindex)
 //                .environmentObject(self.userStore)
                 .background(Color.black.opacity(0.001))
                 .offset(y: self.showProfile ? 0 : screen.height)
@@ -134,8 +135,8 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(ifshowtabBar: .constant(true))
-            .environmentObject(UserStore())
+        HomeView(ifshowtabBar: .constant(true), userindex: 0)
+            .environmentObject(UserDataStore(userDataList: [UserData(username: "wwq", avatar: "boy")]))
     }
 }
 

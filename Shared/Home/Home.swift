@@ -14,10 +14,11 @@ struct Home: View {
     @Binding var showProfile: Bool
     @Binding var showUpdate: Bool 
     @Binding var showContentWithRing: Bool
-    @EnvironmentObject var userStore: UserStore
+    @EnvironmentObject var userStore: UserDataStore
 //    @StateObject var userStore: UserStore
 //    @Binding var userStore: UserStore
     @EnvironmentObject var homeCardData: HomeCardDataList
+    var userindex: Int
     
     var body: some View {
         ScrollView {
@@ -29,13 +30,13 @@ struct Home: View {
                     
                     Spacer()
                     
-                    ChangeToMenuView(showProfile: self.$showProfile)
+                    ChangeToMenuView(showProfile: self.$showProfile, userindex: self.userindex)
                         .environmentObject(self.userStore)
 //                    ChangeToMenuView(userStore: .constant(self.userStore),showProfile: self.$showProfile)
                         
                     
                     Button(action: {
-                        if self.userStore.isLogged{
+                        if self.userStore.userDataList[self.userindex].isLogged{
                             self.showUpdate.toggle()
                         }else{
                             self.ifAlert = true
@@ -101,8 +102,8 @@ struct Home: View {
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
 //      这个是不是应该用什么environmentObject的那个，那个只是针对数据类型的嘛
-        Home(ifAlert: .constant(false), showProfile: .constant(false), showUpdate: .constant(false), showContentWithRing: .constant(false))
-            .environmentObject(UserStore())
+        Home(ifAlert: .constant(false), showProfile: .constant(false), showUpdate: .constant(false), showContentWithRing: .constant(false), userindex: 0)
+            .environmentObject(UserDataStore(userDataList: [UserData(username: "wwq", avatar: "boy")]))
             .environmentObject(HomeCardDataList(cardDataList:[
                 homeCardData(title: "How to Love", color: Color("Color1"),image: "cloud"),
                 homeCardData(title: "who to Love", color: Color("Color2"),image: "mountain"),
@@ -199,21 +200,22 @@ struct ChangeToMenuView: View {
 //    @Binding var userStore: UserStore
 //    @StateObject var userStore: UserStore
     @Binding var showProfile: Bool
-    @EnvironmentObject var userStore: UserStore
+    @EnvironmentObject var userStore: UserDataStore
+    var userindex: Int
     
     var body: some View {
-        if userStore.isLogged{
+        if userStore.userDataList[self.userindex].isLogged{
             Button(action: {
                 self.showProfile.toggle()
             }){
-                Image("boy")
+                Image(self.userStore.userDataList[userindex].avatar)
                     .resizable()
                     .frame(width: 48, height: 48)
                     .clipShape(Circle())
             }
         }else{
             Button(action: {
-                self.userStore.showLogin.toggle()
+                self.userStore.userDataList[self.userindex].showLogin.toggle()
             }){
                 Image(systemName: "person.crop.circle")
                     .resizable()
