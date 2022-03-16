@@ -18,6 +18,7 @@ struct Home: View {
 //    @StateObject var userStore: UserStore
 //    @Binding var userStore: UserStore
     @EnvironmentObject var homeCardData: HomeCardDataList
+    //equals to index in login
     var userindex: Int
     
     var body: some View {

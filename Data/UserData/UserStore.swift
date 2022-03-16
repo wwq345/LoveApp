@@ -47,7 +47,7 @@ class UserDataStore: ObservableObject{
     }
 }
 
-struct UserData: Identifiable, Decodable{
+struct UserData: Identifiable, Decodable, Equatable{
     var id: Int = 0
     var username: String
 //    var password: String

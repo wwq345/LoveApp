@@ -15,7 +15,9 @@ struct LoginView: View {
     @State var isAlert: Bool = false
     @State var isSuccess: Bool = false
     @EnvironmentObject var userStore: UserDataStore
+    //Dont need
     var userindex: Int
+    // var userindex: Int = Api().login()
     
     var errorMessage: String = "There are some Problem with Logging"
 
@@ -67,7 +69,7 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView(userindex: 0)
-            .environmentObject(UserDataStore())
+            .environmentObject(UserDataStore(userDataList: [UserData(username: "wwq", avatar: "boy")]))
     }
 }
 
@@ -223,11 +225,24 @@ struct FunctionButtonView: View{
     @Binding var isSuccess: Bool
     @Binding var userStore: UserDataStore
     var userindex: Int
+    //var userIndex: Int = Api.login()
 //    var errorMessage: String = "There are some Problem with Logging"
     var forgetMessage: String = "Too Stupid to forget"
     
+    //how to set isSuccess?
     func login(){
         self.isLoading = true
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self.isLoading = false
+//            self.isSuccess = true
+//            self.userStore.userDataList[index].isLogged = true
+//            UserDefaults.standard.set(true, forKey: "isLogged")
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                self.isSuccess = false
+//                self.userStore.userDataList[index].showLogin = false
+//            }
+//        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.isLoading = false

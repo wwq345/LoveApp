@@ -1,8 +1,8 @@
 //
 //  DateCourseListView.swift
-//  wang.dov
+//  wang.dov (iOS)
 //
-//  Created by i564206 on 2022/2/18.
+//  Created by i564206 on 2022/3/11.
 //
 
 import SwiftUI
@@ -10,37 +10,39 @@ import SwiftUI
 
 struct DateCourseListView: View {
     @EnvironmentObject var cardData: CardDataList
-//    @StateObject var cardData: CardDataList
+//    @StateObject var cardData1: CardDataList
     @Binding var ifshowTabBar: Bool
     var body: some View {
         
-      
+        
         NavigationView {
             List{
-                    ForEach(self.cardData.dataList) { item in
-                        
-                        NavigationLink(destination:
-                                        CourseDetailView(index: item.id)
-                                        .environmentObject(self.cardData)
-                                        .onAppear(){
-                                            self.ifshowTabBar = false
-                                        }
-                                        .onDisappear(){
-                                            self.ifshowTabBar = true
-                                        }
-                        )
-                        {
-                            CourseCardView(index: item.id)
-                                .environmentObject(self.cardData)
-                            
-                        }
-                        .navigationBarTitle(Text("Love Course"))
-                        
+                ForEach(self.cardData.dataList) { item in
+                    
+                    NavigationLink(destination:
+//                                CourseDetailView(cardData: self.cardData, index: item.id)
+                        CourseDetailView( index: item.id)
+                            .environmentObject(self.cardData)
+                                    .onAppear(){
+                        self.ifshowTabBar = false
+                    }
+                                    .onDisappear(){
+                        self.ifshowTabBar = true
+                    }
+                                   )
+                    {
+                        CourseCardView(index: item.id)
+                            .environmentObject(self.cardData)
 
                     }
-                    .padding([.top, .bottom])
+                    .navigationTitle(Text("Love Course"))
+                }
+                .padding([.top, .bottom])
             }
+            .listStyle(.plain)
+
         }
+        
         
     }
 }
@@ -85,7 +87,7 @@ struct CourseCardView: View {
                     
        
                     
-                    Image(systemName: self.cardData.dataList[index].isFavorite ? "heart.fill" : "heart")
+                    Image(systemName: self.cardData.dataList[index].isFavorite ? "star.fill" : "star")
                         .imageScale(.large)
                         .foregroundColor(.pink)
                         .padding()
@@ -119,3 +121,4 @@ struct CourseCardView: View {
         
     }
 }
+

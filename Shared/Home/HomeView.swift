@@ -16,6 +16,7 @@ struct HomeView: View {
     @EnvironmentObject var userStore: UserDataStore
 //    @StateObject var userStore: UserStore
     @Binding var ifshowtabBar: Bool
+    //equals to index in login
     var userindex: Int
     var body: some View {
         ZStack {

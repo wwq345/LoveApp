@@ -19,13 +19,13 @@ class CardDataList: ObservableObject{
     init(dataList: [CardData]){
         self.dataList = []
         for item in dataList{
-            self.dataList.append(CardData(id:self.count, text: item.text,title: item.title, Image: item.Image, isFavorite: item.isFavorite))
+            self.dataList.append(CardData(id: self.count, text: item.text,title: item.title, Image: item.Image, isFavorite: item.isFavorite))
             count += 1
         }
     }
     
     func add(data: CardData){
-        self.dataList.append(CardData(id:self.count, text: data.text, title: data.title, Image: data.Image))
+        self.dataList.append(CardData(id: self.count, text: data.text, title: data.title, Image: data.Image))
         count += 1
     }
 }
