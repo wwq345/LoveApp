@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct TopBarView: View {
     enum Tab: Int{
         case first
@@ -16,15 +18,25 @@ struct TopBarView: View {
     
     @State private var selectedTab = Tab.first
     @State var ifshowTabBar: Bool = true
-    @StateObject var userStore = UserStore()
+    @StateObject var userStore = UserDataStore(userDataList: [
+        UserData(username: "wwq", avatar: "boy"),
+        UserData(username: "wwq1", avatar: "dogSign"),
+        UserData(username: "wwq2", avatar: "logo")])
     @StateObject var cardData: CardDataList = trueCourseData
 //    @EnvironmentObject var cardData: CardDataList = trueCourseData
+    
+   
+    
     var body: some View{
         
         VStack {
             ZStack{
                 if selectedTab == .first{
-                    HomeView(ifshowtabBar: self.$ifshowTabBar)
+//                    var userindex = userStore.userDataList.firstIndex { item in
+//                        item.isLogged == true
+//
+//                    }
+                    HomeView(ifshowtabBar: self.$ifshowTabBar, userindex: 2)
                         .environmentObject(self.userStore)
                 }else if selectedTab == .second{
                     VStack{

@@ -55,7 +55,7 @@
 
 
 
-## Future Function4
+## Future Function4  version1
 
 ### 1.Function
 
@@ -81,7 +81,7 @@
 
 
 
-## Future Function 4
+## Future Function 4 version 2.1
 
 ### 1.function
 
@@ -111,7 +111,7 @@
 
 
 
-## Future Function 5
+## Future Function 5  - version2.2
 
 ### 1.Function
 
@@ -126,7 +126,7 @@
 
 
 
-## FutureFunction 6
+## FutureFunction 6   -version3 
 
 ### 1.Function
 
@@ -140,6 +140,10 @@
 1. Course在展开跳转到新的页面之后，button点击不能改变state
 
    > 前面有个view给挡住了，我说呢，为啥子点不了，但是我找不到那个view啊
+   >
+   > 这个view好像是在生成这个视图的时候出现的
+   >
+   > 为什么会Copy我的最上面的一层视图啊？不理解
 
 2. topbar点击回来的时候为什么登陆了还会有提醒登陆的alert，关键是我根本没有点击啊
 
@@ -148,3 +152,17 @@
 3. updateView点击的时候
 
    > 会出一个提示log：**Unable to simultaneously satisfy constraints**-->这个好像是navigationbartitle的问题，具体原因得问hansi哥了
+
+
+
+## Future Function6 -version 4
+
+### 1.Function
+
+1. Login 和 register的功能，emmm感觉如同胡乱在写一
+
+   > 可能就是胡乱写的
+
+2. 对应的user有对应的头像和name
+
+3. 对应的user有不同的course，update，和不同的detail

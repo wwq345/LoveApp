@@ -8,27 +8,29 @@
 import SwiftUI
 import Combine
 
+
 class UpdateDataStored: ObservableObject{
     @Published var updateList: [updateData]
-    
+    var index: Int = 0
     init(){
         self.updateList = [
-            updateData(title: "Love exceptations", image: "dogSign", text: "here is your love", date: "2001"),
-            updateData(title: "Love experience", image: "cloud", text: "here is experience", date: "2002"),
-            updateData(title: "Love failure", image: "boy", text: "here is failure", date: "2003")
+            updateData(id: 0,title: "Love exceptations", image: "dogSign", text: "here is your love", date: "2001"),
+            updateData(id: 1,title: "Love experience", image: "cloud", text: "here is experience", date: "2002"),
+            updateData(id: 2,title: "Love failure", image: "boy", text: "here is failure", date: "2003")
         ]
     }
     
     init(data: [updateData]){
         self.updateList = []
         for item in data{
-            self.updateList.append(updateData(title: item.title, image: item.image, text: item.text, date: item.date))
+            self.updateList.append(updateData(id: self.index, title: item.title, image: item.image, text: item.text, date: item.date))
+            index += 1
         }
     }
 }
 
 struct updateData: Identifiable{
-    var id = UUID()
+    var id: Int = 0
     var title: String
     var image: String
     var text: String
@@ -36,7 +38,7 @@ struct updateData: Identifiable{
 }
 
 let updateList: [updateData] = [
-    updateData(title: "Love expectations ", image: "dogSign", text: "here is your love", date: "2001"),
-    updateData(title: "Love experience", image: "cloud", text: "here is experience", date: "2002"),
-    updateData(title: "Love failure", image: "boy", text: "here is failure", date: "2003")
+    updateData(id: 0,title: "Love exceptations", image: "dogSign", text: "here is your love", date: "2001"),
+    updateData(id: 1,title: "Love experience", image: "cloud", text: "here is experience", date: "2002"),
+    updateData(id: 2,title: "Love failure", image: "boy", text: "here is failure", date: "2003")
 ]

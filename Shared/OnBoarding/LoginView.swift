@@ -14,7 +14,10 @@ struct LoginView: View {
     @State var isLoading: Bool = false
     @State var isAlert: Bool = false
     @State var isSuccess: Bool = false
-    @EnvironmentObject var userStore: UserStore
+    @EnvironmentObject var userStore: UserDataStore
+    //Dont need
+    var userindex: Int
+    // var userindex: Int = Api().login()
     
     var errorMessage: String = "There are some Problem with Logging"
 
@@ -40,7 +43,7 @@ struct LoginView: View {
                 
             
                 if !self.isFocused{
-                    FunctionButtonView(isLoading: self.$isLoading, isAlert: self.$isAlert, isSuccess: self.$isSuccess, userStore: .constant(self.userStore))
+                    FunctionButtonView(isLoading: self.$isLoading, isAlert: self.$isAlert, isSuccess: self.$isSuccess, userStore: .constant(self.userStore), userindex: self.userindex)
                 }
                 
                 if self.isLoading{
@@ -65,8 +68,8 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
-            .environmentObject(UserStore())
+        LoginView(userindex: 0)
+            .environmentObject(UserDataStore(userDataList: [UserData(username: "wwq", avatar: "boy")]))
     }
 }
 
@@ -220,21 +223,35 @@ struct FunctionButtonView: View{
     @Binding var isLoading: Bool
     @Binding var isAlert: Bool
     @Binding var isSuccess: Bool
-    @Binding var userStore: UserStore
+    @Binding var userStore: UserDataStore
+    var userindex: Int
+    //var userIndex: Int = Api.login()
 //    var errorMessage: String = "There are some Problem with Logging"
     var forgetMessage: String = "Too Stupid to forget"
     
+    //how to set isSuccess?
     func login(){
         self.isLoading = true
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self.isLoading = false
+//            self.isSuccess = true
+//            self.userStore.userDataList[index].isLogged = true
+//            UserDefaults.standard.set(true, forKey: "isLogged")
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                self.isSuccess = false
+//                self.userStore.userDataList[index].showLogin = false
+//            }
+//        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.isLoading = false
             self.isSuccess = true
-            self.userStore.isLogged = true
+            self.userStore.userDataList[self.userindex].isLogged = true
             UserDefaults.standard.set(true, forKey: "isLogged")
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.isSuccess = false
-                self.userStore.showLogin = false
+                self.userStore.userDataList[self.userindex].showLogin = false
             }
         }
         
@@ -295,53 +312,3 @@ struct FunctionButtonView: View{
 }
 
 
-//struct ValidationSevice{
-//    func validateUsername(_ username: String?) throws -> String{
-//        guard let username = username else{
-//            throw ValidationError.invalidValue
-//        }
-//        guard username.count > 3 else{ throw
-//            ValidationError.usernameTooShort
-//        }
-//        guard username.count < 20 else{
-//            throw ValidationError.usernameTooLong
-//        }
-//        return username
-//    }
-//
-//    func validatePassword(_ password: String?) throws -> String{
-//        guard let password = password else{
-//            throw ValidationError.invalidValue
-//        }
-//        guard password.count > 8 else{ throw
-//            ValidationError.passwordTooShort
-//        }
-//        guard password.count < 20 else{
-//            throw ValidationError.passwordTooLong
-//        }
-//        return password
-//    }
-//}
-//
-//enum ValidationError: LocalizedError{
-//    case invalidValue
-//    case passwordTooLong
-//    case passwordTooShort
-//    case usernameTooLong
-//    case usernameTooShort
-//
-//    var errorDescription: String?{
-//        switch self {
-//        case .invalidValue:
-//            return "invalid value"
-//        case .passwordTooLong:
-//            return "pwd too long"
-//        case .passwordTooShort:
-//            return "pwd too short"
-//        case .usernameTooLong:
-//            return "unm too long"
-//        case .usernameTooShort:
-//            return "unm too short"
-//        }
-//    }
-//}
