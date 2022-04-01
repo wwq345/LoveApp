@@ -52,8 +52,8 @@ struct UpdateView: View{
                 .onMove(){ (source: IndexSet, destination: Int) in
                     self.updateStore.updateList.move(fromOffsets: source, toOffset: destination)
                 }
+                .navigationTitle(Text("Upgrades"))
             }
-            .navigationTitle(Text("Upgrades"))
             .navigationBarItems(leading: Button(action: {
                 self.addUpdateData()
             }){

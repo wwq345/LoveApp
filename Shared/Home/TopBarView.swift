@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct TopBarView: View {
     enum Tab: Int{
         case first
@@ -16,23 +18,34 @@ struct TopBarView: View {
     
     @State private var selectedTab = Tab.first
     @State var ifshowTabBar: Bool = true
-    @StateObject var userStore = UserStore()
+    @StateObject var userStore = UserDataStore(userDataList: [
+        UserData(username: "wwq", avatar: "boy"),
+        UserData(username: "wwq1", avatar: "dogSign"),
+        UserData(username: "wwq2", avatar: "logo")])
+    @StateObject var cardData: CardDataList = trueCourseData
+//    @EnvironmentObject var cardData: CardDataList = trueCourseData
+    
+   
+    
     var body: some View{
         
         VStack {
             ZStack{
                 if selectedTab == .first{
-                    HomeView(ifshowtabBar: self.$ifshowTabBar)
+//                    var userindex = userStore.userDataList.firstIndex { item in
+//                        item.isLogged == true
+//
+//                    }
+                    HomeView(ifshowtabBar: self.$ifshowTabBar, userindex: 2)
                         .environmentObject(self.userStore)
                 }else if selectedTab == .second{
-                    
                     VStack{
-                        DateCourseListView(cardData: truecardList, ifshowTabBar: self.$ifshowTabBar)
+                        DateCourseListView(ifshowTabBar: self.$ifshowTabBar)
+                            .environmentObject(self.cardData)
                         if self.ifshowTabBar{
                             tabBarView
                         }
-                        
-                        
+
                     }
                 }else if selectedTab == .third{
                     
@@ -94,8 +107,7 @@ struct TopBarView_Previews: PreviewProvider {
     }
 }
 
-let truecardList: CardDataList = CardDataList(dataList:
-                                                [CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"), CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),CardData(text: "Course3", title: "How to Introduce yourself", Image: "love"),CardData(text: "Course4", title: "How to Introduce yourself", Image: "love"),CardData(text: "Course5", title: "How to Introduce yourself", Image: "love")])
+
 //var body: some View {
 //    ZStack {
 //        TabView{
@@ -119,3 +131,10 @@ let truecardList: CardDataList = CardDataList(dataList:
 //}
 
 
+var trueCourseData: CardDataList = CardDataList(dataList:[
+    CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"),
+    CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),
+    CardData(text: "Course3", title: "How to Introduce yourself", Image: "love"),
+    CardData(text: "Course4", title: "How to Introduce yourself", Image: "love"),
+    CardData(text: "Course5", title: "How to Introduce yourself", Image: "love")
+])

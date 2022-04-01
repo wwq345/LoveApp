@@ -1,43 +1,49 @@
 //
 //  DateCourseListView.swift
-//  wang.dov
+//  wang.dov (iOS)
 //
-//  Created by i564206 on 2022/2/18.
+//  Created by i564206 on 2022/3/11.
 //
 
 import SwiftUI
 
 
 struct DateCourseListView: View {
-    
-    @ObservedObject var cardData: CardDataList
+    @EnvironmentObject var cardData: CardDataList
+//    @StateObject var cardData1: CardDataList
     @Binding var ifshowTabBar: Bool
     var body: some View {
         
-        NavigationView{
+        
+        NavigationView {
             List{
                 ForEach(self.cardData.dataList) { item in
                     
                     NavigationLink(destination:
-                                    CourseDetailView(cardData: self.cardData, index: item.id)
+//                                CourseDetailView(cardData: self.cardData, index: item.id)
+                        CourseDetailView( index: item.id)
+                            .environmentObject(self.cardData)
                                     .onAppear(){
-                                        self.ifshowTabBar = false
-                                    }
+                        self.ifshowTabBar = false
+                    }
                                     .onDisappear(){
-                                        self.ifshowTabBar = true
-                                    }
-                    )    
+                        self.ifshowTabBar = true
+                    }
+                                   )
                     {
                         CourseCardView(index: item.id)
                             .environmentObject(self.cardData)
-                        
-                    }
-                    .navigationBarTitle(Text("Love Course"))
 
+                    }
+                    .navigationTitle(Text("Love Course"))
                 }
                 .padding([.top, .bottom])
             }
+            .listStyle(.plain)
+
         }
+        
+        
     }
 }
        
@@ -45,12 +51,18 @@ struct DateCourseListView: View {
 
 struct DateCourseListView_Previews: PreviewProvider {
     static var previews: some View {
-        DateCourseListView(cardData: CardDataList(dataList: [
-        CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"),
-        CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),
-        CardData(text: "Course3", title: "How to increase romantic between you", Image: "love")
-        ]), ifshowTabBar: .constant(true))
-            .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro Max"))
+//        DateCourseListView(cardData: CardDataList(dataList: [
+//        CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"),
+//        CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),
+//        CardData(text: "Course3", title: "How to increase romantic between you", Image: "love")
+//        ]), ifshowTabBar: .constant(true))
+//            .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro Max"))
+        DateCourseListView(ifshowTabBar: .constant(true))
+            .environmentObject(CardDataList(dataList: [
+                CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"),
+                CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),
+                CardData(text: "Course3", title: "How to increase romantic between you", Image: "love")
+            ]))
     }
 }
 
@@ -74,9 +86,16 @@ struct CourseCardView: View {
                     Spacer(minLength: 40)
                     
        
-                    Image(systemName: "heart")
+                    
+                    Image(systemName: self.cardData.dataList[index].isFavorite ? "star.fill" : "star")
                         .imageScale(.large)
+                        .foregroundColor(.pink)
                         .padding()
+                        .onTapGesture {
+                            self.cardData.dataList[index].isFavorite.toggle()
+                        }
+                    
+                    
                     
                     Image("cpuid")
                         .resizable()
@@ -102,3 +121,4 @@ struct CourseCardView: View {
         
     }
 }
+

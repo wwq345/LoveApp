@@ -21,8 +21,9 @@ struct UpdateDetailView: View {
                 
                 Text(updateData.text)
             }
-            .navigationBarTitle(updateData.title)
         }
+        .navigationBarTitle(updateData.title)
+        
     }
 }
 
