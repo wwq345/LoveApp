@@ -11,6 +11,7 @@ struct UpdateView: View{
     
     @ObservedObject var updateStore = UpdateDataStored()
     
+    
     func addUpdateData(){
         updateStore.updateList.append(
             updateData(title: "ContentView", image: "dogSign", text: "here is ContentView", date: "2001"))
@@ -64,7 +65,7 @@ struct UpdateView: View{
 
 struct UpdateView_Previews: PreviewProvider {
     static var previews: some View {
-            UpdateView()
+        UpdateView()
     }
 }
 

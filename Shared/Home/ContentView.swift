@@ -146,6 +146,7 @@ struct TitleView: View {
                 Text("Love Meet")
                     .fontWeight(.bold)
                     .font(.largeTitle)
+                    .foregroundColor(.black)
                 Spacer()
             }
             .padding()
@@ -172,6 +173,7 @@ struct WordView: View {
             Text("Emmmm,I don't want to print so many words,but I have to let it beacome two rows to show if the results is what I need")
                 .multilineTextAlignment(.center)
                 .font(.subheadline)
+                .foregroundColor(.black)
                 .lineSpacing(4)
             
             HStack(spacing: 20){

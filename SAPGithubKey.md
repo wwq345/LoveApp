@@ -7,3 +7,5 @@ Unit test:
 
 
 Love App token: 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 (Wwq345)
+
+Love App token version1.1: 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

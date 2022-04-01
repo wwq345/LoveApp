@@ -37,6 +37,9 @@
 		1B92BA0827CDF98B00817C36 /* LoginSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B92BA0727CDF98A00817C36 /* LoginSuccessView.swift */; };
 		1B92BA0B27CE0A4100817C36 /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B92BA0A27CE0A4100817C36 /* UserStore.swift */; };
 		1B92BA0D27CE3AF200817C36 /* TestIfCanChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B92BA0C27CE3AF200817C36 /* TestIfCanChange.swift */; };
+		1B92BA1127CF72F900817C36 /* HomeCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B92BA1027CF72F900817C36 /* HomeCardData.swift */; };
+		1BE9D43727D0AB990028B7BA /* CourseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE9D43627D0AB990028B7BA /* CourseDetailView.swift */; };
+		1BE9D43827D0AB990028B7BA /* CourseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE9D43627D0AB990028B7BA /* CourseDetailView.swift */; };
 		1BFB702327BB5653009D88B7 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB702227BB5653009D88B7 /* Tests_iOS.swift */; };
 		1BFB702527BB5653009D88B7 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB702427BB5653009D88B7 /* Tests_iOSLaunchTests.swift */; };
 		1BFB702F27BB5653009D88B7 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFB702E27BB5653009D88B7 /* Tests_macOS.swift */; };
@@ -129,6 +132,8 @@
 		1B92BA0727CDF98A00817C36 /* LoginSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSuccessView.swift; sourceTree = "<group>"; };
 		1B92BA0A27CE0A4100817C36 /* UserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		1B92BA0C27CE3AF200817C36 /* TestIfCanChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestIfCanChange.swift; sourceTree = "<group>"; };
+		1B92BA1027CF72F900817C36 /* HomeCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardData.swift; sourceTree = "<group>"; };
+		1BE9D43627D0AB990028B7BA /* CourseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailView.swift; sourceTree = "<group>"; };
 		1BFB700A27BB5650009D88B7 /* wang_dovApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wang_dovApp.swift; sourceTree = "<group>"; };
 		1BFB700B27BB5650009D88B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1BFB700C27BB5653009D88B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -269,10 +274,27 @@
 			path = UserData;
 			sourceTree = "<group>";
 		};
-		1BFB700427BB5650009D88B7 = {
+		1B92BA0E27CF72C600817C36 /* HomeData */ = {
+			isa = PBXGroup;
+			children = (
+				1B92BA1027CF72F900817C36 /* HomeCardData.swift */,
+			);
+			path = HomeData;
+			sourceTree = "<group>";
+		};
+		1B92BA0F27CF72DB00817C36 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				1B92BA0927CE0A2C00817C36 /* UserData */,
+				1B92BA0E27CF72C600817C36 /* HomeData */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		1BFB700427BB5650009D88B7 = {
+			isa = PBXGroup;
+			children = (
+				1B92BA0F27CF72DB00817C36 /* Data */,
 				1B92B9FE27CDEC7C00817C36 /* Packages */,
 				1B65490127C6585C003BEB45 /* test */,
 				1BFC5E0D27C4AD1A002B50BD /* API */,
@@ -377,6 +399,7 @@
 			children = (
 				1B07892927BF65C9008D935E /* DateCourseListView.swift */,
 				1BFC589827C33C3C00FDCA14 /* CardDataList.swift */,
+				1BE9D43627D0AB990028B7BA /* CourseDetailView.swift */,
 			);
 			path = Course;
 			sourceTree = "<group>";
@@ -688,6 +711,7 @@
 				1BFC5E0B27C49113002B50BD /* PostData.swift in Sources */,
 				1B07892727BE746C008D935E /* RIngView.swift in Sources */,
 				1BFC589927C33C3D00FDCA14 /* CardDataList.swift in Sources */,
+				1B92BA1127CF72F900817C36 /* HomeCardData.swift in Sources */,
 				1B65490027C61EB8003BEB45 /* LoginView.swift in Sources */,
 				1BFB704A27BD2B02009D88B7 /* HomeView.swift in Sources */,
 				1B92BA0827CDF98B00817C36 /* LoginSuccessView.swift in Sources */,
@@ -695,6 +719,7 @@
 				1B92BA0627CDEF2F00817C36 /* LoginLoadingView.swift in Sources */,
 				1BFB704727BCF2D1009D88B7 /* MenuView.swift in Sources */,
 				1B92BA0127CDED5B00817C36 /* LottileView.swift in Sources */,
+				1BE9D43727D0AB990028B7BA /* CourseDetailView.swift in Sources */,
 				1B07892A27BF65C9008D935E /* DateCourseListView.swift in Sources */,
 				1B07891E27BE3CB0008D935E /* UpdateDetailView.swift in Sources */,
 				1B65490327C65871003BEB45 /* TestFunctionView.swift in Sources */,
@@ -706,6 +731,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BE9D43827D0AB990028B7BA /* CourseDetailView.swift in Sources */,
 				1BFB703527BB5653009D88B7 /* ContentView.swift in Sources */,
 				1BFC5E0927C48F44002B50BD /* TestPostView.swift in Sources */,
 				1B07892527BE6DCD008D935E /* TopBarView.swift in Sources */,

@@ -8,24 +8,84 @@
 import SwiftUI
 
 struct TopBarView: View {
-    var body: some View {
-        TabView{
-            HomeView().tabItem(){
-                Image(systemName: "play.circle.fill")
-                Text("Home")
+    enum Tab: Int{
+        case first
+        case second
+        case third
+    }
+    
+    @State private var selectedTab = Tab.first
+    @State var ifshowTabBar: Bool = true
+    @StateObject var userStore = UserStore()
+    var body: some View{
+        
+        VStack {
+            ZStack{
+                if selectedTab == .first{
+                    HomeView(ifshowtabBar: self.$ifshowTabBar)
+                        .environmentObject(self.userStore)
+                }else if selectedTab == .second{
+                    
+                    VStack{
+                        DateCourseListView(cardData: truecardList, ifshowTabBar: self.$ifshowTabBar)
+                        if self.ifshowTabBar{
+                            tabBarView
+                        }
+                        
+                        
+                    }
+                }else if selectedTab == .third{
+                    
+                    VStack(spacing: 10){
+                        UpdateView()
+                        tabBarView
+                    }
+                    
+                    
+                }
             }
             
-            DateCourseListView(cardData: truecardList).tabItem(){
-                Image(systemName: "rectangle.stack.fill")
-                Text("Love Course")
-            }
-            
-            UpdateView().tabItem(){
-                Image(systemName: "heart")
-                Text("Update your love")
+            if selectedTab == .first && self.ifshowTabBar {
+                tabBarView
             }
         }
+        
+        
     }
+    
+    var tabBarView: some View{
+        VStack(alignment: .center){
+            HStack(spacing: 40){
+                tabBarItem(.first, title: "Home", icon: "play.circle.fill")
+                tabBarItem(.second, title: "Love Course", icon: "rectangle.stack.fill")
+                tabBarItem(.third, title: "Update love", icon: "heart.fill" )
+            }
+            .padding()
+            .frame(height: 40)
+        }
+    }
+    
+    func tabBarItem(_ tab: Tab, title: String, icon: String ) -> some View{
+        ZStack{
+            VStack(){
+                Spacer()
+                VStack{
+                    Image(systemName: icon)
+                        .imageScale(.large)
+                }
+                Text(title)
+                    .font(.footnote)
+            }
+            
+            
+        }
+        .frame(width: 100)
+        
+        .onTapGesture {
+            selectedTab = tab
+        }
+    }
+
 }
 
 struct TopBarView_Previews: PreviewProvider {
@@ -35,4 +95,27 @@ struct TopBarView_Previews: PreviewProvider {
 }
 
 let truecardList: CardDataList = CardDataList(dataList:
-                                                [CardData(text: "Course1", title: "How to Introduce yourself", Image: "love", showAllScreen: false), CardData(text: "Course2", title: "How to Attract dating person", Image: "love", showAllScreen: false)])
+                                                [CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"), CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),CardData(text: "Course3", title: "How to Introduce yourself", Image: "love"),CardData(text: "Course4", title: "How to Introduce yourself", Image: "love"),CardData(text: "Course5", title: "How to Introduce yourself", Image: "love")])
+//var body: some View {
+//    ZStack {
+//        TabView{
+//            HomeView(userStore: UserStore())
+//                .tabItem(){
+//                Image(systemName: "play.circle.fill")
+//                Text("Home")
+//            }
+//
+//            DateCourseListView(cardData: truecardList).tabItem(){
+//                Image(systemName: "rectangle.stack.fill")
+//                Text("Love Course")
+//            }
+//
+//            UpdateView().tabItem(){
+//                Image(systemName: "heart")
+//                Text("Update your love")
+//            }
+//        }
+//    }
+//}
+
+

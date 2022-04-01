@@ -231,6 +231,7 @@ struct FunctionButtonView: View{
             self.isLoading = false
             self.isSuccess = true
             self.userStore.isLogged = true
+            UserDefaults.standard.set(true, forKey: "isLogged")
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.isSuccess = false
                 self.userStore.showLogin = false
