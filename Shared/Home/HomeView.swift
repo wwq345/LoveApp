@@ -22,7 +22,9 @@ struct HomeView: View {
             
             
             
-            Home(showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing, userStore: .constant(self.userStore))
+//            Home(showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing, userStore: .constant(self.userStore))
+            Home(showProfile:self.$showProfile, showUpdate: self.$showUpdate, showContentWithRing: self.$showContentWithRing)
+                .environmentObject(self.userStore)
 //            顺序很重要
                 .padding(.top, 44)
                 .background(Color.white.opacity(self.showProfile ? Double(self.menuPosition.height / 10 + 1) : 1))
@@ -63,7 +65,8 @@ struct HomeView: View {
             }
             
             
-            MenuView()
+            MenuView(showProfile: self.$showProfile)
+                .environmentObject(self.userStore)
                 .background(Color.black.opacity(0.001))
                 .offset(y: self.showProfile ? 0 : screen.height)
                 .offset(y: self.menuPosition.height)
@@ -83,27 +86,29 @@ struct HomeView: View {
                         }
                 )
             
-//            if self.userStore.showLogin{
-//                ZStack {
-//                    LoginView()
-//
-//                    VStack{
-//                        HStack {
-//                            Spacer()
-//
-//                            Image(systemName: "xmark")
-//                                .frame(width: 36, height: 36)
-//                                .foregroundColor(.white)
-//                                .background(.black)
-//                                .clipShape(Circle())
-//                        }
-//                    }
-//                    .padding()
-//                    .onTapGesture {
-//                        self.userStore.showLogin = false
-//                    }
-//                }
-//            }
+            if self.userStore.showLogin{
+                ZStack {
+                    LoginView()
+                        .environmentObject(self.userStore)
+
+                    VStack{
+                        HStack {
+                            Spacer()
+
+                            Image(systemName: "xmark")
+                                .frame(width: 36, height: 36)
+                                .foregroundColor(.white)
+                                .background(.black)
+                                .clipShape(Circle())
+                        }
+                        Spacer()
+                    }
+                    .padding()
+                    .onTapGesture {
+                        self.userStore.showLogin = false
+                    }
+                }
+            }
         }
     }
 }
