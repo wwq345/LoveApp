@@ -10,7 +10,6 @@ import SwiftUI
 
 struct DateCourseListView: View {
     @EnvironmentObject var cardData: CardDataList
-//    @StateObject var cardData1: CardDataList
     @Binding var ifshowTabBar: Bool
     var body: some View {
         
@@ -20,7 +19,6 @@ struct DateCourseListView: View {
                 ForEach(self.cardData.dataList) { item in
                     
                     NavigationLink(destination:
-//                                CourseDetailView(cardData: self.cardData, index: item.id)
                         CourseDetailView( index: item.id)
                             .environmentObject(self.cardData)
                                     .onAppear(){
@@ -51,12 +49,6 @@ struct DateCourseListView: View {
 
 struct DateCourseListView_Previews: PreviewProvider {
     static var previews: some View {
-//        DateCourseListView(cardData: CardDataList(dataList: [
-//        CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"),
-//        CardData(text: "Course2", title: "How to Attract dating person", Image: "love"),
-//        CardData(text: "Course3", title: "How to increase romantic between you", Image: "love")
-//        ]), ifshowTabBar: .constant(true))
-//            .previewDevice(PreviewDevice(rawValue: "iPhone 12 Pro Max"))
         DateCourseListView(ifshowTabBar: .constant(true))
             .environmentObject(CardDataList(dataList: [
                 CardData(text: "Course1", title: "How to Introduce yourself", Image: "love"),

@@ -11,7 +11,7 @@ import SwiftUI
 struct wang_dovApp: App {
     var body: some Scene {
         WindowGroup {
-            TestSwipeButton()
+            TestScrollView()
         }
     }
 }
