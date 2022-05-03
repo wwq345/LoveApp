@@ -97,8 +97,6 @@ extension PullToRefreshModifier {
             return
         }
         
-//        print("the bounds is: \(bounds)")
-//        print("bounds is\(bounds)")
         let headerFrame = proxy[bounds]
         let y = headerFrame.minY
 //        print("headerMiny is\(headerFrame.minY)") dynamic
@@ -126,9 +124,6 @@ extension PullToRefreshModifier {
         }
         
         contentOffset -= topDistance
-        
-//        print("the header frame is: \(headerFrame) and scroll view size: \(proxy.size)")
-//        print("content offset is: \(contentOffset)")
         
         
         if contentOffset <= threshold && headerRefreshData.refreshState == .stopped {

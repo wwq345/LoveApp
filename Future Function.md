@@ -166,3 +166,15 @@
 2. 对应的user有对应的头像和name
 
 3. 对应的user有不同的course，update，和不同的detail
+
+
+
+
+
+## IRSS
+
+1.async 要求必须有接受返回值的东西
+
+2.wang.dov里面可以看一个function，有关这个refreshable的东西的处理，关键是withCheckedThrowingContinuation, discardableResult
+
+3. "dd 'th' "可以通过这种方法加入一个th
